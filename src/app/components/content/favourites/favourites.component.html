@@ -1,3 +1,14 @@
-<p>
-  favourites works!
-</p>
+<div class="columns level-item" *ngFor="let joke of favourites; let i = index;">
+  <div class="card">
+      <div class="card-content">
+        <p class="title">
+          “{{joke.joke}}”
+        </p>
+      </div>
+      <footer class="card-footer">
+        <a class="card-footer-item" (click)="removeFromFavourite(i)">
+          Remove from favourite
+        </a>
+      </footer>
+  </div>
+  </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { JokeserviceService } from '../../../services/data-access/jokeservice.service';
 import { JokeResponseModel } from '../../../components/models/joke-response.model';
+import { CacheService } from '../../../services/caching/cache.service';
 
 @Component({
   selector: 'app-homepage',
@@ -9,7 +10,7 @@ import { JokeResponseModel } from '../../../components/models/joke-response.mode
 })
 export class HomepageComponent implements OnInit {
 
-  constructor(private jokeService: JokeserviceService) { }
+  constructor(private jokeService: JokeserviceService, private cacheService: CacheService) { }
 
   jokes: JokeResponseModel;
   ngOnInit() {
@@ -20,6 +21,10 @@ export class HomepageComponent implements OnInit {
     this.jokeService.getJokes('10').subscribe((data) => {
       this.jokes = data.value;
     });
+  }
+
+  addAsFavourite(index: number): void {
+    this.cacheService.storeDataInLocalStorage(this.jokes[index]);
   }
 
 }
